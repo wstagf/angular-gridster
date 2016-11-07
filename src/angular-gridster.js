@@ -1391,17 +1391,19 @@
 				var originalCol, originalRow;
 				var inputTags = ['select', 'option', 'input', 'textarea', 'button'];
 
-				function dragStart(event) {
-					$el.addClass('gridster-item-moving');
-					gridster.movingItem = item;
+                function dragStart(event) {
+                    if ($el[0].attributes.getNamedItem('data-drawable').nodeValue === "true") {
+                        $el.addClass('gridster-item-moving');
+                        gridster.movingItem = item;
 
-					gridster.updateHeight(item.sizeY);
-					scope.$apply(function() {
-						if (gridster.draggable && gridster.draggable.start) {
-							gridster.draggable.start(event, $el, itemOptions, item);
-						}
-					});
-				}
+                        gridster.updateHeight(item.sizeY);
+                        scope.$apply(function () {
+                            if (gridster.draggable && gridster.draggable.start) {
+                                gridster.draggable.start(event, $el, itemOptions, item);
+                            }
+                        });
+                    } 
+                }
 
 				function drag(event) {
 					var oldRow = item.row,
